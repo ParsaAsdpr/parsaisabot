@@ -1,0 +1,239 @@
+const Discord = require('discord.js');
+
+const client = new Discord.Client();
+
+let prefix = "$";
+
+
+client.on("message", async message => {
+  
+  if(message.author.bot) return;
+  
+  if(!message.content.startsWith(prefix)) return;
+
+
+if(message.author.client) return;
+
+
+client.on("message", async message => {
+client.on('ready', () => {
+  console.log('I am ready!');
+  client.user.setActivity("type $help", {
+    type:"STREAMING"
+});
+});
+
+
+
+if(!message.content.startsWith(prefix)) return;
+
+
+const args = message.content.slice(prefix.length).trim().split(/ +/g);
+
+const command = args.shift().toLowerCase();
+
+
+
+
+  if (command === 'av' || 'avatar') {
+    
+        
+    if(message.mentions.users.size){
+        let member=message.mentions.users.first()
+    if(member){
+        const emb=new Discord.MessageEmbed().setImage(member.displayAvatarURL()).setTitle(member.username).addField("Avatar URL",member.displayAvatarURL()).setColor(0xFFF933).setTimestamp(Date.now())
+        message.channel.send(emb)
+    }
+    else{
+        message.channel.send("cannot find anyone with that name")
+    }
+    }else{
+        const emb=new Discord.MessageEmbed().setImage(message.author.displayAvatarURL()).setColor(0xFFF933).setTitle(message.author.username).setTimestamp(Date.now())
+        message.channel.send(emb)
+    }
+}
+
+
+
+
+if (command === "kick") {
+
+  if(message.mentions.users.size){
+    let member=message.mentions.users.first()
+
+  if (!message.member.hasPermission("KICK_MEMBERS"))
+      return;
+      if(member) {
+  member.kick().then((member) => {
+      message.channel.send(new Discord.MessageEmbed().setTitle(':no_entry: User Kicked').setColor(0x5CD800).setDescription(member.displayName).setTimestamp(Date.now()).addField("User ID",member.id))
+      
+      if (!message.member.hasPermission(['KICK_MEMBERS'])) {
+        message.reply("You cannot ban members");
+   
+      } else if (member.hasPermission(['KICK_MEMBERS'])) {
+        message.reply("You cannont ban this member");
+    }
+})
+}
+  }
+else{
+  const emb=new Discord.MessageEmbed().setTitle("Please mention a valid user.").setColor(0xff0000)
+  message.channel.send(emb)
+}
+
+}
+
+
+
+client.on('guildMemberAdd', member => {
+    const channel = member.guild.channels.cache.find(ch => ch.name === 'general');
+    if (!channel) return;
+    channel.send(`We Have a New Dumb, ${member}`);
+  });
+
+
+
+  client.on('message', message => {
+    if (!message.guild) return;      
+
+
+    if (command === prefix + "Fban") {
+
+      if(message.mentions.users.size){
+      var member = message.mentions.members.first();
+
+    if(member){
+        const embfban=new Discord.MessageEmbed().setTitle(':no_entry: User Banned').setColor(0x5CD800).setDescription(member.user.username).setTimestamp(Date.now()).setFooter(`banned by ${message.author.username}`).addField("User ID",member.user.id);
+        message.channel.send(embfban)
+    }
+    else{
+        message.channel.send(new Discord.MessageEmbed().setDescription("Cannot find user with that name.").setColor(0xff1100))
+    }
+    }else{
+        const embifban=new Discord.MessageEmbed().setTitle("Mention a valid user c:").setColor(0xff1100)
+        message.channel.send(embifban)
+    }
+      
+}
+
+
+
+
+
+
+
+      if (command === prefix + "ban") {
+        if (!message.member.hasPermission("BAN_MEMBERS"))
+        return;
+  
+        let member = message.mentions.members.first();
+        member.ban().then((member) => {
+           return message.channel.send(new Discord.MessageEmbed().setTitle(':no_entry: User Banned').setColor(0x5CD800).setDescription(member.user.username).setTimestamp(Date.now()).addField("User ID",member.id));
+        }).catch(() => {
+            if (!message.member.hasPermission(['BAN_MEMBERS'])) {
+                message.reply("You cannot ban members");
+            } else if (member.hasPermission(['BAN_MEMBERS',])) {
+                message.reply("You cannont ban this member");
+            }
+        })
+    }   
+  })
+
+    
+    
+    
+
+      if (command === prefix + 'help' ) {
+        message.channel.send(new Discord.MessageEmbed().setTitle('Command List').addField(":tools: Moderation", "``$help moderation``").addField(":smile: Fun","``$help fun``").setColor(0xE0FF00).setFooter("Type $invite to invite bot to your server."))
+      }
+
+  
+        if (command === prefix + 'help moderation') {
+          message.channel.send(new Discord.MessageEmbed().setTitle('Moderation Commands').setDescription("``$ban``,``$kick``").setColor(0xE0FF00).setTimestamp(Date.now()))
+        }
+      
+  
+        if (command === prefix + 'help fun') {
+          message.channel.send(new Discord.MessageEmbed().setTitle('Fun Commands').setDescription("``$Fban``").setColor(0xE0FF00).setTimestamp(Date.now()))
+        }
+      
+
+        if (command === prefix + 'help utility') {
+          message.channel.send(new Discord.MessageEmbed().setTitle('Utility Commands').setDescription("").setColor(0xE0FF00))
+        }
+
+        if (command === prefix + 'invite') {
+          message.channel.send(new Discord.MessageEmbed().setTitle("Tap here to invite bot to your server.").setURL("https://discordapp.com/oauth2/authorize?client_id=725320691842285578&scope=bot&permissions=2146958847"))
+        }
+
+
+        if(command === prefix + "say") {
+
+          const sayMessage = args.join(" ");
+          message.delete().catch(O_o=>{}); 
+          // And we get the bot to say the thing: 
+          message.channel.send(sayMessage);
+        }
+      
+    
+
+
+      })
+      })
+
+    
+
+
+
+
+
+
+client.login("NzI1MzIwNjkxODQyMjg1NTc4.XvYj_g.Ui0tnDtfSde7ZXaS4cS4fGHk3T4");
+
+
+
+
+
+  if(command === "ban") {
+    if(!message.member.roles.cache.some(r=>["Administrator"].includes(r.name)))
+      return message.reply("Sorry, you don't have permissions to use this!");
+    
+    let member = message.mentions.members.first();
+    if(!member)
+      return message.reply("Please mention a valid member of this server");
+    if(!member.bannable) 
+      return message.reply("I cannot ban this user! Do they have a higher role? Do I have ban permissions?");
+
+    let reason = args.slice(1).join(' ');
+    if(!reason) reason = "No reason provided";
+    
+    await member.ban(reason)
+      .catch(error => message.reply(`Sorry ${message.author} I couldn't ban because of : ${error}`));
+    message.reply(`${member.user.tag} has been banned by ${message.author.tag} because: ${reason}`);
+  }
+
+
+
+if (command == "mute") { // creates the command mute
+  var mutedrole = message.guild.roles.find("name", "muted");
+  if (!message.member.hasPermission('BAN_MEMBERS') ) return message.reply("Sorry, you do not have the permission to do this!"); // if author has no perms
+  var mutedmember = message.mentions.members.first(); // sets the mentioned user to the var kickedmember
+  if (!mutedmember) return message.reply("Please mention a valid member of this server!") // if there is no kickedmmeber var
+  if (mutedmember.hasPermission("ADMINISTRATOR",)) return message.reply("I cannot mute this member!") // if memebr is an admin
+  var mutereasondelete = 10 + mutedmember.user.id.length //sets the length of the kickreasondelete
+  var mutereason = message.content.substring(mutereasondelete).split(" "); // deletes the first letters until it reaches the reason
+  var mutereason = mutereason.join(" "); // joins the list kickreason into one line
+  if (!mutereason) return message.reply("Please indicate a reason for the mute!") // if no reason
+  mutedmember.addRole(mutedrole) //if reason, kick
+      .catch(error => message.reply(`Sorry ${message.author} I couldn't mute because of : ${error}`)); //if error, display error
+  message.reply(`${mutedmember.user} has been muted by ${message.author} because: ${mutereason}`); // sends a message saying he was kicked
+}
+
+if (command == "unmute") { // creates the command unmute
+  if (!message.member.roles.hasPermission('BAN_MEMBERS')) return message.reply("Sorry, you do not have the permission to do this!"); // if author has no perms
+  var unmutedmember = message.mentions.members.first(); // sets the mentioned user to the var kickedmember
+  if (!unmutedmember) return message.reply("Please mention a valid member of this server!") // if there is no kickedmmeber var
+  unmutedmember.removeRole(mutedrole) //if reason, kick
+      .catch(error => message.reply(`Sorry ${message.author} I couldn't mute because of : ${error}`)); //if error, display error
+  message.reply(`${unmutedmember.user} has been unmuted by ${message.author}!`); // sends a message saying he was kicked
+}
