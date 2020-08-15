@@ -43,7 +43,7 @@ client.on("message", async message => {
     return;
     let member = message.mentions.members.first() || message.guild.members.get(args[0]);
     if(!member)
-	        if (message.content === `${prefix}ban ${mentions.message.author}`)
+    if (command === `ban ${message.author}`)
 			return;
       return message.send(new Discord.MessageEmbed().setDescription("That user seems invalid"));
     if(!member.kickable) 
@@ -66,7 +66,7 @@ client.on("message", async message => {
     let reason = args.slice(1).join(' ');
     if(!reason) reason = "No reason provided";
 
-    if (message.content === `${prefix}ban ${mentions.message.author}`)
+    if (command === `ban ${message.author}`)
 	    return;
 
     await member.ban(reason).then((member) => {
