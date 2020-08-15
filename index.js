@@ -65,6 +65,7 @@ client.on("message", async message => {
     if(!reason) reason = "No reason provided";
 
     if (message.content === `${prefix}ban ${mentions.message.author}`)
+	    return;
 
     await member.ban(reason).then((member) => {
        return message.channel.send(new Discord.MessageEmbed().setTitle(':no_entry: User Banned').setColor(0x5CD800).addField('Username',member.user.tag).setFooter(`Moderator: ${message.author.tag}`).setTimestamp(Date.now()).addField("User ID",member.id));
