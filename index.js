@@ -43,8 +43,6 @@ client.on("message", async message => {
     return;
     let member = message.mentions.members.first() || message.guild.members.get(args[0]);
     if(!member)
-    if (command === `ban ${message.author}`)
-			return;
       return message.send(new Discord.MessageEmbed().setDescription("That user seems invalid"));
     if(!member.kickable) 
       return message.send("I cannot kick this user! Do they have a higher role? Do I have kick permissions?");
@@ -65,9 +63,6 @@ client.on("message", async message => {
     let member = message.mentions.members.first();
     let reason = args.slice(1).join(' ');
     if(!reason) reason = "No reason provided";
-
-    if (command === `ban ${message.author}`)
-	    return;
 
     await member.ban(reason).then((member) => {
        return message.channel.send(new Discord.MessageEmbed().setTitle(':no_entry: User Banned').setColor(0x5CD800).addField('Username',member.user.tag).setFooter(`Moderator: ${message.author.tag}`).setTimestamp(Date.now()).addField("User ID",member.id));
