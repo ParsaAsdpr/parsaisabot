@@ -532,23 +532,23 @@ if(command === "say") {
 }
 
   if(command === 'uinfo'){
-    var member = message.mentions.members.first();
-    if(member){
-      const joinDiscord = moment(member.createdAt).format('llll');
-      const joinServer = moment(member.joinedAt).format('llll');
+    var menmember = message.mentions.members.first();
+    if(menmember){
+      const joinDiscord = moment(menmember.createdAt).format('llll');
+      const joinServer = moment(menmember.joinedAt).format('llll');
 
       message.channel.send(new Discord.MessageEmbed()
       .setTitle('User Informations')
-      .setThumbnail(member.user.displayAvatarURL())
-      .addField('Username',member.user.tag)
-      .addField('User ID',member.id)
-      .addField('Joined at',`${moment.utc(member.joinedAt).format('dddd, MMMM Do YYYY, HH:mm:ss')}`)
-      .addField('Account Created At', `${moment.utc(member.createdAt).format('dddd, MMMM Do YYYY, HH:mm:ss')}`)
-      .addField("Game", `${member.presence.game ? member.presence.game.name : 'None'}`)
-      .addField('Status', member.presence.status)
+      .setThumbnail(menmember.user.displayAvatarURL())
+      .addField('Username',menmember.user.tag)
+      .addField('User ID',menmember.id)
+      .addField('Joined at',`${moment.utc(menmember.joinedAt).format('dddd, MMMM Do YYYY, HH:mm:ss')}`)
+      .addField('Account Created At', `${moment.utc(menmember.createdAt).format('dddd, MMMM Do YYYY, HH:mm:ss')}`)
+      .addField("Game", `${menmember.presence.game ? menmember.presence.game.name : 'None'}`)
+      .addField('Status', menmember.presence.status)
       .setColor('RANDOM'))
     }
-    if(!member){
+    if(!menmember){
       const joinDiscord = moment(message.author.createdAt).format('llll');
       const joinServer = moment(message.author.joinedAt).format('llll');
 
@@ -734,7 +734,7 @@ message.channel.send(new Discord.MessageEmbed().setImage(coss[cos]).setColor('RA
 
 });
 
-bot.on('error', err => {
+client.on('error', err => {
   console.log(err);
 })
 
