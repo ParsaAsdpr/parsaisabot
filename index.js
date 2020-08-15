@@ -59,7 +59,6 @@ client.on("message", async message => {
   if (command === "ban") {
     if (!message.member.hasPermission("BAN_MEMBERS"))
     return;
-
     let member = message.mentions.members.first();
     let reason = args.slice(1).join(' ');
     if(!reason) reason = "No reason provided";
