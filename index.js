@@ -2,6 +2,10 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const moment = require('moment');
 const prefix = '$';
+require('dotenv/config');
+const http = require('http');
+const port = process.env.PORT || 3000;
+http.createServer().listen(port)
 
 client.on("ready", () => {
   console.log(`Bot has started, with ${client.users.cache.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`);
@@ -530,8 +534,8 @@ if(command === "say") {
   if(command === 'uinfo'){
     var member = message.mentions.members.first();
     if(member){
-      const joinDiscord = moment(message.author.createdAt).format('llll');
-      const joinServer = moment(message.author.joinedAt).format('llll');
+      const joinDiscord = moment(member.createdAt).format('llll');
+      const joinServer = moment(member.joinedAt).format('llll');
 
       message.channel.send(new Discord.MessageEmbed()
       .setTitle('User Informations')
@@ -565,8 +569,8 @@ if(command === "say") {
   if(command === 'userinfo'){
     var member = message.mentions.members.first();
     if(member){
-      const joinDiscord = moment(message.author.createdAt).format('llll');
-      const joinServer = moment(message.author.joinedAt).format('llll');
+      const joinDiscord = moment(member.createdAt).format('llll');
+      const joinServer = moment(member.joinedAt).format('llll');
 
       message.channel.send(new Discord.MessageEmbed()
       .setTitle('User Informations')
@@ -730,5 +734,8 @@ message.channel.send(new Discord.MessageEmbed().setImage(coss[cos]).setColor('RA
 
 });
 
+bot.on('error', err => {
+  console.log(err);
+})
 
-client.login("NzE0MTQ5MTg2OTg3MjI5MTg0.XsqdQg.MJdDjgG5_Dwmr9a_8Ibukt1SbS0");
+client.login(process.env.TOKEN);
