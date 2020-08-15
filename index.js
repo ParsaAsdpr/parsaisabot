@@ -43,6 +43,8 @@ client.on("message", async message => {
     return;
     let member = message.mentions.members.first() || message.guild.members.get(args[0]);
     if(!member)
+	        if (message.content === `${prefix}ban ${mentions.message.author}`)
+			return;
       return message.send(new Discord.MessageEmbed().setDescription("That user seems invalid"));
     if(!member.kickable) 
       return message.send("I cannot kick this user! Do they have a higher role? Do I have kick permissions?");
